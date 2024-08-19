@@ -14,6 +14,7 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
@@ -33,22 +34,26 @@
 
                 <div class="collapse navbar-collapse p-2" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto ">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ route('home') }}">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page"
-                                href="{{ route('categoria.index') }}">Categoria</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ route('home') }}">Produto</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ route('home') }}">Vendas</a>
-                        </li>
 
-                    </ul>
+                    @auth
+                        <ul class="navbar-nav me-auto ">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="{{ route('home') }}">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page"
+                                    href="{{ route('categoria.index') }}">Categoria</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="{{ route('home') }}">Produto</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="{{ route('home') }}">Vendas</a>
+                            </li>
+
+                        </ul>
+                    @endauth
+
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
@@ -89,8 +94,25 @@
                 </div>
             </div>
         </nav>
+        <div class="container">
+            <div class="content-wrapper" style="padding-bottom: 20px;">
+                <section class="content-header d-flex justify-content-around mt-3 mb-3">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">@yield('title')</h1>
+                        </div>
+                    </div>
+                </section>
+                <section class="content">
+                    <div class="container-fluid">
+                        @yield('content')
+                    </div>
+                </section>
+            </div>
+        </div>
 
-        <main class="py-4">
+
+        {{-- <main class="py-4">
 
             <div class="position-fixed end-0 p-3" style="z-index: 11">
                 <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
@@ -99,10 +121,15 @@
                 </div>
             </div>
             @yield('content')
-        </main>
+        </main> --}}
     </div>
 
-    
+    <footer class="main-footer">
+        <strong>Copyright &copy; {{ date('Y') }} <a href="#">Marcelo Freitas</a>.</strong>
+        Todos os direitos reservados.
+    </footer>
+
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>

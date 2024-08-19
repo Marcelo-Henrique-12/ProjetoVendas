@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CategoriaRequest;
 use App\Models\Categoria;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoriaController extends Controller
 {
@@ -13,7 +14,8 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        return view('categorias.index');
+        $categorias = Categoria::all();
+        return view('categorias.index', compact('categorias'));
     }
 
     /**
@@ -21,7 +23,7 @@ class CategoriaController extends Controller
      */
     public function create()
     {
-        //
+        return view('categorias.create');
     }
 
     /**
@@ -29,8 +31,16 @@ class CategoriaController extends Controller
      */
     public function store(CategoriaRequest $request)
     {
-        Categoria::create($request->validated());
+        $data = $request->validated();
+        DB::transaction(function () use ($data, $request) {
+            $categoria = Categoria::create($data);
 
+            if ($request->icone) {
+                $categoria->icone = $request->file('icone')->store('icones/' . $categoria->id);
+            }
+
+
+        });
         return redirect()->route('categoria.index')->with('success', 'Categoria criada com sucesso!');
     }
 

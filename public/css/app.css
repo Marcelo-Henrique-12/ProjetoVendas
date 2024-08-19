@@ -1,0 +1,27 @@
+
+.form-control:focus {
+    box-shadow: none !important;
+    border-color: #80bdff;
+}
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+    #app {
+        display: flex;
+        flex-direction: column;
+        min-height: calc(100vh - 60px);
+    }
+
+
+.content-wrapper {
+    flex: 1;
+}
+
+.main-footer {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    text-align: center;
+    align-self: flex-end;
+}
